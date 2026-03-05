@@ -57,12 +57,17 @@ class SpotyDownloader:
             'format': 'bestaudio/best',
             # Guarda los archivos en el formato especificado
             'outtmpl': os.path.join(self.download_path, '%(title)s.%(ext)s'),
+            'writethumbnail': True, # Descarga la miniatura / foto
             'postprocessors': [
                 {
                     # Usa FFmpeg para extraer y convertir a mp3
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
                     'preferredquality': '320', # Máxima calidad mp3 posible
+                },
+                {
+                    # Incrusta la foto del álbum/video en el MP3
+                    'key': 'EmbedThumbnail',
                 },
                 # Si tienes FFmpeg instalado añadirá etiquetas/metadata cuando sea posible
                 {'key': 'FFmpegMetadata'},
